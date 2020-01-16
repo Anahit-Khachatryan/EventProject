@@ -1,9 +1,9 @@
-import { NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { EventService } from 'src/app/services/event.service';
 import { EventModel } from 'src/app/models/eventModel';
-import { EventType } from 'src/app/models/eventType';
+
 
 @Component({
   selector: 'app-event-create',
@@ -11,69 +11,123 @@ import { EventType } from 'src/app/models/eventType';
   styleUrls: ['./event-create.component.css']
 })
 export class EventCreateComponent implements OnInit {
-  @ViewChild('eventForm', { static: true }) public createEventForm: NgForm;
-  eventType;
-  events: EventModel;
+  // @ViewChild('eventForm', {static: true}) public createEventForm: NgForm;
+  eventTypes;
+  event: EventModel;
   panelTitle: string;
   deactivated = false;
+  initialForm: EventModel;
+  eventForm;
+
+  id: number;
+  editMode = false;
+  eventName = '';
+  eventType: number;
+  eventDate: Date | string;
+  eventDescription = '';
+  eventImage;
+
+  // today = this.datePipe.transform(Date.now(), 'yyyy-MM-ddThh:mm');
 
   constructor(private service: EventService,
-    private router: Router,
-    private _route: ActivatedRoute
-  ) { }
+              private router: Router,
+              private _route: ActivatedRoute,
+  ) {
+  }
 
   ngOnInit() {
-    console.log(this.createEventForm);
-    this.getEvType();
-    this._route.paramMap.subscribe(parameterMap => {
-      const id = +parameterMap.get('id');
-      this.getEventId(id);
-    });
-
+    this._route.params
+      .subscribe((params) => {
+        this.id = Number(params.id);
+        this.editMode = !!params.id;
+        this.initForm();
+        this.getEvType();
+        if (this.editMode) {
+          this.getEventId();
+        }
+      });
   }
 
   getEvType() {
-    return this.service.getEventType().subscribe(type => this.eventType = type);
-
+    this.service.getEventType()
+      .subscribe(types => {
+        this.eventTypes = types;
+        console.log(this.eventTypes, 'types');
+      });
   }
 
-  private getEventId(id: number) {
-    if (id === 0) {
-      this.events = {
-        name: null,
-        description: null,
-        date: null,
-        eventType: null,
-      };
+  initForm() {
+    console.log(this.editMode, 'mode');
+    this.eventForm = new FormGroup({
+      name: new FormControl({value: this.eventName, disabled: this.editMode}, [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(12)
+      ]),
+      type: new FormControl({value: this.eventType, disabled: this.editMode}, Validators.required),
+      date: new FormControl(this.eventDate, Validators.required),
+      description: new FormControl(this.eventDescription, [
+        Validators.required,
+        Validators.minLength(30),
+        Validators.maxLength(100)
+      ]),
+      image: new FormControl(null)
+    });
+  }
 
-      this.panelTitle = 'Create Event';
-      this.createEventForm.reset()
-    } else {
-      this.panelTitle = 'Edit Event';
-      this.service.getOneEvent(id).subscribe(
-        (event) => this.events = event,
+  setFormValues() {
+    this.eventName = this.event.name;
+    this.eventType = Number(this.event.eventType);
+    this.eventDate = this.event.date; // '2019-12-28T12:56' "YYYY-MM-DDThh:mm"
+    this.eventDescription = this.event.description;
+    this.eventImage = this.event.image;
+  }
+
+  private getEventId() {
+    this.service.getOneEvent(this.id)
+      .subscribe(
+        (event) => {
+          console.log(this.id);
+          this.event = event;
+          this.setFormValues();
+          this.initForm();
+          console.log(this.event, 'bla');
+          console.log(this.event.description);
+        },
         (err: any) => console.log(err)
       );
-    }
   }
-  save(): void {
-    console.log(this.events);
-    this.deactivated = true;
 
-    if (this.events.id == null) {
-      this.service.addEvent(this.events).subscribe((data) => {
-        console.log(data);
-        this.createEventForm.reset();
-        this.router.navigate(['events-table']);
-      });
+  save(): void {
+    this.deactivated = true;
+    const formData = this.eventForm.value;
+
+    const newEvent: EventModel = {
+      date: formData.date,
+      description: formData.description,
+    };
+
+    if (this.editMode) {
+      newEvent.name = this.eventName;
+      newEvent.eventType = this.eventType;
+      console.log(this.event, 'newEvent');
+      this.service.updateEvent(this.id, newEvent)
+        .subscribe((data) => {
+            console.log(data);
+            this.router.navigate(['events-table']);
+          },
+          (error: any) => console.log(error)
+        );
     } else {
-      this.service.updateEvent(this.events).subscribe((data) => {
-        console.log(data);
-        this.createEventForm.reset();
-        this.router.navigate(['events-table'])
-      },
-        (error: any) => console.log(error)
-      )
+      newEvent.name = formData.name;
+      newEvent.eventType = Number(formData.type);
+      console.log(formData);
+
+      this.service.addEvent(newEvent)
+        .subscribe((data) => {
+          console.log(data);
+          this.router.navigate(['events-table']);
+        });
     }
   }
 }

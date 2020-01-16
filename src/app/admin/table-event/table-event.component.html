@@ -28,30 +28,5 @@
 
   </table>
 <app-delete  *ngIf="confirmDelete" (deleteClose)="deleteEvent()" (close)="closeEvent()"></app-delete>
-
-<!-- <div class="pagination">
-    <button class="btn page-btn" [class.disabled]="currentPage==1" (click)="getCurrentPageEvents(currentPage-1)"
-      [disabled]="currentPage==1">
-      Prev
-    </button> -->
-<!-- <button
-          *ngFor="let page of pages"
-          class="btn page-btn"
-          [class.active]='page==currentPage'
-          (click)="getCurrentPageEvents(page)"
-        >
-          {{page}}
-        </button>
-        <button
-          class="btn page-btn"
-          [class.disabled]="currentPage==totalPageCount"
-          (click)="getCurrentPageEvents(currentPage+1)"
-          [disabled]="currentPage==totalPageCount"
-        >
-          Next
-        </button> -->
-
-<!-- <app-pagination [eventsTotalCount]="eventsTotalCount"></app-pagination> -->
-<!-- </div> -->
 <app-pagination>{{pagedItems}}</app-pagination>
 

@@ -13,6 +13,7 @@ import { EventCreateComponent } from './admin/table-event/event-create/event-cre
 import { CreateEventCanDeactivateGuardService } from './services/create-event-can-deactivate.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from "@angular/forms";
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [AuthLoginGuard] },
@@ -31,7 +32,10 @@ const appRoutes: Routes = [
   },
   {
     path: 'edit/:id', component: EventCreateComponent, canActivate: [AdminGuard],
-    // canDeactivate: [CreateEventCanDeactivateGuardService]
+    canDeactivate: [CreateEventCanDeactivateGuardService]
+  },
+  {
+    path: 'create', component: EventCreateComponent, canActivate: [AdminGuard],
   },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
@@ -48,7 +52,8 @@ const appRoutes: Routes = [
     CommonModule
   ],
   exports: [
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ]
 })
 export class AppRoutingModule { }

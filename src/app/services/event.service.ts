@@ -1,5 +1,5 @@
 import {environment} from '../../environments/environment';
-import { throwError } from "rxjs";
+import { throwError } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -13,7 +13,7 @@ interface Event {
   date: string;
   eventType: number;
   image: string;
-  id: number
+  id: number;
 }
 
 @Injectable({
@@ -25,17 +25,17 @@ export class EventService {
   getEvent(): Observable<EventModel[]> {
     return this.http.get<EventModel[]>(`${environment.apiUrl}/events`,
 
-    ).pipe(catchError(this.handleError))
+    ).pipe(catchError(this.handleError));
   }
 
   getOneEvent(id: number) {
     return this.http.get<Event>(`${environment.apiUrl}/events/${id}`,
-    ).pipe(catchError(this.handleError));;
+    ).pipe(catchError(this.handleError));
   }
 
   getEventType() {
     return this.http.get<Event>(`${environment.apiUrl}/eventTypes`,
-    ).pipe(catchError(this.handleError));;
+    ).pipe(catchError(this.handleError));
   }
 
   addEvent(newEvent) {
@@ -44,8 +44,8 @@ export class EventService {
     ).pipe(catchError(this.handleError));
   }
 
-  updateEvent(newEvent) {
-    return this.http.put<void>(`${environment.apiUrl}/events/${newEvent.id}`, newEvent,
+  updateEvent(id, newEvent) {
+    return this.http.put<void>(`${environment.apiUrl}/events/${id}`, newEvent,
     ).pipe(catchError(this.handleError));
   }
 

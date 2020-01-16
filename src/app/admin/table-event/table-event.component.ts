@@ -21,14 +21,21 @@ export class TableEventComponent implements OnInit {
   constructor(private eventService: EventService,
     private router: Router,
     private route: ActivatedRoute,
+    private pagerService:PagerService,
     private eventsService:EventService) {
     // this.events = this.route.snapshot.data['eventList']
   }
 
   ngOnInit() {
     this.events = this.route.snapshot.data['eventList'];
-    this.getEv();
     this.getType();
+    this.eventsService.pagination(1,"10").subscribe(res => {
+      console.log(res);
+      this.totalItemCount = +res.headers.get('X-Total-Count')
+      console.log(this.allItems = res.body);
+    });
+  
+
 
   }
   getEv() {
@@ -59,19 +66,11 @@ export class TableEventComponent implements OnInit {
     this.eventService.deleteEvent(this.eventId).subscribe(() => console.log(`Event with id = ${this.eventId} deleted`));
     this.confirmDelete = false;
   }
-  
+
   createEvent() {
-    this.router.navigate(['/edit',0])
+    this.router.navigate(['/create']);
   }
   closeEvent(){
     this.confirmDelete = false;
   }
-  getLimitedPages(page,limit){
-    this.eventsService.pagination(1,"10").subscribe(res => {
-      console.log(res);
-      this.totalItemCount = +res.headers.get('X-Total-Count')
-      console.log(this.allItems = res.body);
-    });
-  }
-
 }
