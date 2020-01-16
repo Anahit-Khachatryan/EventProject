@@ -10,9 +10,8 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  // @ViewChild({read:'f', static:true}) loginForm:NgForm
   error: string = null;
-  auth:AuthResponseData; //stugich
+  auth:AuthResponseData; 
   constructor(private authService:AuthService, 
     private router: Router
     ) {}
@@ -27,7 +26,7 @@ export class LoginComponent implements OnInit {
     };
     const email = form.value.email;
     const password = form.value.password;
-    this.auth = form.value; //stugich
+    this.auth = form.value;
     this.authService.login(this.auth).subscribe(respData =>{
       console.log(respData);
       localStorage.setItem('token', respData.token);

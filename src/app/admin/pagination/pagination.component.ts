@@ -31,14 +31,12 @@ totalItems;
         this.eventsService.getEvent().subscribe(data => this.allItems = data);
         console.log(this.allItems = res.body);
 
-        // console.log(`"Total count": ${this.pageCount.length - 1}`)       
            this.setPage(1);
       });
   }
 
   ngOnChanges(): void {
-      // this.dataReady = !!this.eventsTotalCount;
-      // this.pageCount = Math.ceil(this.eventsTotalCount / 4);
+    
   }
   setPage(page: number) {
     if (page < 1 || page > this.pager.totalPages) {

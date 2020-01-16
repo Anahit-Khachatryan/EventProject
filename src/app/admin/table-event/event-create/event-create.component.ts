@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { EventService } from 'src/app/services/event.service';
 import { EventModel } from 'src/app/models/eventModel';
-
+import { EventType } from 'src/app/models/eventType';
 
 @Component({
   selector: 'app-event-create',
@@ -16,17 +16,15 @@ export class EventCreateComponent implements OnInit {
   events: EventModel;
   panelTitle: string;
   deactivated = false;
-  // today = this.datePipe.transform(Date.now(), 'yyyy-MM-ddThh:mm');
 
   constructor(private service: EventService,
     private router: Router,
-    private _route: ActivatedRoute,
+    private _route: ActivatedRoute
   ) { }
 
   ngOnInit() {
     console.log(this.createEventForm);
     this.getEvType();
-    console.log(this.getEvType)
     this._route.paramMap.subscribe(parameterMap => {
       const id = +parameterMap.get('id');
       this.getEventId(id);
@@ -49,7 +47,6 @@ export class EventCreateComponent implements OnInit {
       };
 
       this.panelTitle = 'Create Event';
-      console.log(this.panelTitle);
       this.createEventForm.reset()
     } else {
       this.panelTitle = 'Edit Event';
@@ -61,7 +58,6 @@ export class EventCreateComponent implements OnInit {
   }
   save(): void {
     console.log(this.events);
-    console.log(this.createEventForm)
     this.deactivated = true;
 
     if (this.events.id == null) {
