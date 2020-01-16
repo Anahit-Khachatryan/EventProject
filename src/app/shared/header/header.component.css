@@ -1,0 +1,14 @@
+
+header {
+    background-color:#12141a;
+    height: 65px;
+    padding: 22px 0;
+    color:#fff;
+}
+p {
+  float: left;
+}
+ header a {
+    float: right;
+    color: #00d0ff;
+ }

@@ -1,0 +1,84 @@
+<app-header></app-header>
+<section class="section-bg">
+  <div class="container">
+    <h2 class="text-center">{{panelTitle}}</h2>
+    <div class="editcreate-wrapper">
+      <form #eventForm="ngForm" (ngSubmit)="save()" >
+        <!-- <h2 class="text-center">{{panelTitle}}</h2> -->
+        <div class="form-group">
+          <label for="name">Event Name</label>
+          <input class="form-control"
+           id="name"
+          name="name"
+         [(ngModel)]='events.name'
+          type="text"
+          required minlength=3
+          maxlength="12"
+           #nameControl="ngModel">
+          <span class="error-message" *ngIf="nameControl.errors?.required && nameControl.touched">Required field</span>
+          <span class="error-message" *ngIf="nameControl.errors?.minlength && nameControl.touched">Event name must be at
+            least 3 characters long.</span>
+          <span class="error-message" *ngIf="nameControl.errors?.maxlength && nameControl.touched">Event name can be max
+            12
+            characters long.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="eventType">Event Type</label>
+          <select class="form-control"
+           id="eventType"
+          name="eventType"
+          [(ngModel)]="events.eventType"
+          required
+          #evType="ngModel">
+            <option [ngValue]="null">Select Department</option>
+            <option *ngFor='let type of eventType' [value]='type.value'>
+              {{type.type}}
+            </option>
+          </select>
+          <!-- <span class="error-message" *ngIf="evType.invalid && evType.touched">Required field</span> -->
+        </div>
+
+        <div class="form-group">
+          <label for="date">Event Date</label>
+          <input class="form-control" id="date" type="datetime-local" name='date' [(ngModel)]='events.date' required>
+          <span class="error-message" *ngIf="date.invalid && date.touched">Required field</span>
+
+        </div>
+
+        <div class="form-group">
+          <label for="description">Event Description</label>
+          <input class="form-control"
+          id="description"
+           type="text"
+            name="description"
+            [(ngModel)]="events.description"
+            #description="ngModel"
+            type="text"
+             minlength="30"
+            maxlength="100"
+            required>
+          <span class="error-message" *ngIf="description.errors?.required && description.touched">Required field</span>
+          <span class="error-message" *ngIf="description.errors?.minlength && description.touched">Description must be
+            at least 20 charachter long</span>
+          <span class="error-message" *ngIf="description.errors?.maxlength && description.touched">Description can be
+            max 100 charachters long</span>
+        </div>
+
+        <div class="form-group">
+          <label for="image">Image upload</label>
+          <input class="form-control"
+           id="image"
+            type="text"
+             name='image'
+              type="text">
+        </div>
+        <button class='btn-dark btn fl-right mt-10' type='submit' [disabled]="eventForm.invalid" (click)='save()'>Save</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<app-footer></app-footer>
+<!-- {{eventForm.value |json}}
+    {{events | json}} -->

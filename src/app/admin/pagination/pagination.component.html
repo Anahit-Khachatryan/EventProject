@@ -1,0 +1,22 @@
+  <div class="container">
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+            <li >
+                <button (click)="setPage(1)">First</button>
+            </li>
+            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                <button (click)="setPage(page)">{{page}}</button>
+            </li>
+            <li >
+                <button (click)="setPage(pager.currentPage + 1)">Next</button>
+            </li>
+           
+        </ul>
+        <!-- {{pager |json }} -->
+        <!-- <p>Hettto</p> --> 
+        <!-- {{pagedItems |json}} -->
+        <!-- {{allItems |json}} -->
+        <!-- {{totalItemCount |json}} -->
+        <!-- {{pagedItems |json}} -->
+    </div>
+
+

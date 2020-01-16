@@ -1,0 +1,14 @@
+<div class="panel">
+    <h3>{{event.name}}</h3>
+    <p class="description">{{event.description}}</p>
+    <div class="d-flex mt-auto">
+        <p class="date">{{event.date}}</p>
+        <p class="ml-auto" [ngSwitch]="event.eventType">
+            <span *ngSwitchCase="1">Concert</span>
+            <span *ngSwitchCase="2">Conference</span>
+            <span *ngSwitchCase="3">Party</span>
+            <span *ngSwitchCase="4">Meet-up</span>
+            <span *ngSwitchDefault>N/A</span>
+        </p>
+    </div>
+</div>

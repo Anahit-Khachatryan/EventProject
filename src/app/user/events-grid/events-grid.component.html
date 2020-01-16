@@ -1,0 +1,12 @@
+<section>
+<div class="container">
+        <h2 class="text-center">Events</h2>
+        <div class="row">
+        <app-event 
+        *ngFor="let event of events; let i = index"
+        [event]='event' 
+        [eventType]="eventType">
+        </app-event>
+        </div>
+</div>
+</section>

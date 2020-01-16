@@ -1,0 +1,57 @@
+<h2 class="text-center">Events List</h2>
+<div class="d-flex">
+  <button class="btn btn-dark ml-auto" (click)="createEvent()">Create Event</button>
+</div>
+  <table>
+    <tr>
+      <th>Event Name</th>
+      <th>Event Description</th>
+      <th>Event Date</th>
+      <th>Event Type</th>
+      <th>Action</th>
+    </tr>
+    <tr *ngFor='let event of events'>
+      <td>{{event.name}}</td>
+      <td>{{event.description}}</td>
+      <td>{{event.date }}</td>
+      <td [ngSwitch]="event.eventType">
+        <span *ngSwitchCase=1>Concert</span>
+        <span *ngSwitchCase=2>Conference</span>
+        <span *ngSwitchCase=3>Party</span>
+        <span *ngSwitchCase=4>Meet-up</span>
+        <span *ngSwitchDefault>N/A</span>
+      </td>
+      <td>
+        <button class="btn btn-transparent" (click)="editEvent(event)">Edit</button>
+      <button class="btn btn-transparent" (click)="onDelete(event)"  >Delete</button>
+      </tr>
+
+  </table>
+<app-delete  *ngIf="confirmDelete" (deleteClose)="deleteEvent()" (close)="closeEvent()"></app-delete>
+
+<!-- <div class="pagination">
+    <button class="btn page-btn" [class.disabled]="currentPage==1" (click)="getCurrentPageEvents(currentPage-1)"
+      [disabled]="currentPage==1">
+      Prev
+    </button> -->
+<!-- <button
+          *ngFor="let page of pages"
+          class="btn page-btn"
+          [class.active]='page==currentPage'
+          (click)="getCurrentPageEvents(page)"
+        >
+          {{page}}
+        </button>
+        <button
+          class="btn page-btn"
+          [class.disabled]="currentPage==totalPageCount"
+          (click)="getCurrentPageEvents(currentPage+1)"
+          [disabled]="currentPage==totalPageCount"
+        >
+          Next
+        </button> -->
+
+<!-- <app-pagination [eventsTotalCount]="eventsTotalCount"></app-pagination> -->
+<!-- </div> -->
+<app-pagination>{{pagedItems}}</app-pagination>
+

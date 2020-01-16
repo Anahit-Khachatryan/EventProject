@@ -1,1 +1,172 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    word-break: break-word;
+
+}
+body {
+    position: relative;
+    font-size: 16px;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+}
+a,
+button {
+    color: #333;
+    cursor: pointer;
+}
+a:focus,
+button:focus {
+border: 0;
+outline: 0;
+}
+ul {
+    list-style-type: none;
+}
+a:hover,
+button :hover{
+    opacity: 0.7;
+}
+h1,h1, h3 {
+    color: #171717;
+}
+h1 {
+    font-size: 48px;
+}
+h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+h3 {
+  font-size: 24px;
+}
+.text-center {
+    text-align: center;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+.col-4 {
+    width: 33.333333%;
+    padding: 0 15px;
+}
+.col-8 {
+    width: 66.666667%;
+    padding: 0 15px;
+}
+label {
+    font-size: 14px;
+    color: #535050;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 14px;
+    color: #555;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+}
+input::-webkit-input-placeholder { 
+    color: rgba(51, 51, 51, 0.72);
+  }
+
+.btn {
+    display: inline-block;
+    padding: 10px;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    min-width: 120px;
+    border: 0;
+    text-transform: capitalize;
+}
+.btn-dark {
+ background-color: #12141a;
+ color: #fff;
+}
+.btn-dark:hover {
+    opacity: 0.8;
+}
+.btn-transparent,
+ .btn-transparent:hover {
+    border: 1px solid #12141a;
+    background-color: transparent;
+    color:#333;
+
+}
+.btn-transparent:hover {
+    opacity: 0.8;
+}
+
+.btn-primary {
+    background-image: linear-gradient(-45deg, #13051f, #233671);background: -webkit-linear-gradient(#00d0ff,#25ffbf);
+}
+.btn-primary:hover {
+    background-image: linear-gradient(-45deg, #13051f, #233671);background: -webkit-linear-gradient(#25ffbf,#00d0ff);
+}
+    .container {
+    max-width: 1400px;
+    margin: auto;
+    padding: 0 15px;
+} 
+.error-message {
+    color: #d11313;
+    font-size: 12px;
+    display: block;
+}
+.justify-content {
+    display: flex;
+    justify-content: center;
+}
+section {
+    padding: 30px 0;
+    background-color: #f0f2f6;
+}
+.section-bg {
+    background-image:url('/../assets/images/cover.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.d-flex {
+    display: flex;
+}
+.ml-auto {
+    margin-left: auto;
+}
+.mt-10 {
+    margin-top: 10px;
+}
+.mt-20 {
+    margin-top: 20px;
+}
+.fl-right {
+    float: right;
+}
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f6f6f6;
+}
+app-footer {
+    margin-top: auto;
+}
+app-event-create {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
